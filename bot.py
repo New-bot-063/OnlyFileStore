@@ -347,7 +347,7 @@ async def button(bot: Client, cmd: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Hᴇʟᴘ", callback_data="aboutdevs",
+                        InlineKeyboardButton("Hᴇʟᴘ", callback_data="aboutdevs"),
                         InlineKeyboardButton("Aʙᴏᴜᴛ", callback_data="aboutbot")
                     ],
                     [
