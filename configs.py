@@ -36,7 +36,7 @@ class Config(object):
 	ABOUT_DEV_TEXT = f"""
 **Hᴇʟᴘ:** This is Permanent Files Store Bot!
 Send me any file I will save it in my Database. Also works for channel. Add me to channel as Admin with Edit Permission, I will add Save Uploaded File in Channel & add Sharable Button Link.
-
+"""
 	HOME_TEXT = """
 Hi, [{}](tg://user?id={})\n\nThis is Permanent **File Store Bot**.
 
