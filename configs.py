@@ -27,14 +27,12 @@ class Config(object):
 
 📡 **Hosted on:** [Heroku](https://heroku.com)
 
-🧑🏻‍💻 **Developer:** @AbirHasan2005
-
-👥 **Support Group:** [Linux Repositories](https://t.me/DevsZone)
+🧑🏻‍💻 **Owner:** @ARKBotz
 
 📢 **Updates Channel:** [Discovery Projects](https://t.me/Discovery_Updates)
 """
 	ABOUT_DEV_TEXT = f"""
-**Hᴇʟᴘ:** This is Permanent Files Store Bot!
+**Hᴇʟᴘ:**\n\nThis is Permanent Files Store Bot!
 Send me any file I will save it in my Database. Also works for channel. Add me to channel as Admin with Edit Permission, I will add Save Uploaded File in Channel & add Sharable Button Link.
 """
 	HOME_TEXT = """
