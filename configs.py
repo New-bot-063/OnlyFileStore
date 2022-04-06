@@ -19,7 +19,6 @@ class Config(object):
 	BANNED_CHAT_IDS = list(set(int(x) for x in os.environ.get("BANNED_CHAT_IDS", "-1001362659779 -1001255795497").split()))
 	OTHER_USERS_CAN_SAVE_FILE = bool(os.environ.get("OTHER_USERS_CAN_SAVE_FILE", True))
 	ABOUT_BOT_TEXT = f"""
-
 🤖 **My Name:** [Files Store Bot](https://t.me/{BOT_USERNAME})
 
 📝 **Language:** [Python3](https://www.python.org)
