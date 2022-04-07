@@ -33,7 +33,7 @@ class Config(object):
 """
 	ABOUT_DEV_TEXT = f"""
 **Hᴇʟᴘ:**\n\nThis is Permanent Files Store Bot!
-Send me any file I will save it in my Database. Also works for channel. Add me to channel as Admin with Edit Permission, I will add Save Uploaded File in Channel & add Sharable Button Link.
+Send me any file I will save it in my Database. Also Works For More than 1 File Just Follow These Steps.\n\nThe steps are:-\n\n➥1.) First Send all the file you want to save in batch\n➥2.) Click on save to batch for all the files\➥3.n) Click on get link in last file\n➥4.) Enjoy 🥳
 """
 	HOME_TEXT = """
 Hi, [{}](tg://user?id={})\n\nThis is Permanent **File Store Bot**.
