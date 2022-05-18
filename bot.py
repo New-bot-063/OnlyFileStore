@@ -77,7 +77,7 @@ async def start(bot: Client, cmd: Message):
                         InlineKeyboardButton("Aʙᴏᴜᴛ", callback_data="aboutbot")
                     ],
                     [
-                        InlineKeyboardButton("Project Channel", url="https://t.me/ArkBotz")
+                        InlineKeyboardButton("Updates", url="https://t.me/ArkBotz")
                     ]
                 ]
             )
@@ -351,7 +351,7 @@ async def button(bot: Client, cmd: CallbackQuery):
                         InlineKeyboardButton("Aʙᴏᴜᴛ", callback_data="aboutbot")
                     ],
                     [
-                        InlineKeyboardButton("Project Channel", url="https://t.me/ArkBotz")
+                        InlineKeyboardButton("Updates", url="https://t.me/ArkBotz")
                     ]
                 ]
             )
@@ -408,7 +408,7 @@ async def button(bot: Client, cmd: CallbackQuery):
                         InlineKeyboardButton("Aʙᴏᴜᴛ", callback_data="aboutbot")
                     ],
                     [
-                        InlineKeyboardButton("Project Channel", url="https://t.me/ArkBotz")
+                        InlineKeyboardButton("Updates", url="https://t.me/ArkBotz")
                     ]
                 ]
             )
