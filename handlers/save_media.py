@@ -53,7 +53,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
         share_link = f"https://t.me/{Config.BOT_USERNAME}?start=ArkBotz_{str_to_b64(str(SaveMessage.message_id))}"
         await editable.edit(
             f"**Batch Files Stored in my Database!**\n\nHere is the Permanent Link of your files: {share_link} \n\n"
-            f"Just Click the link to get your files!\n\n🍃_Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ : @ArkBotz_",
+            f"Just Click the link to get your files!\n\n🍃Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ : @ArkBotz",
             parse_mode="Markdown",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Open Link", url=share_link)]]
@@ -92,7 +92,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
         await editable.edit(
             "**Your File Stored in my Database!**\n\n"
             f"Here is the Permanent Link of your file: {share_link} \n\n"
-            "Just Click the link to get your file!\n\n🍃_Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ : @ArkBotz_",
+            "Just Click the link to get your file!\n\n🍃Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ : @ArkBotz",
             parse_mode="Markdown",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Open Link", url=share_link)]]
