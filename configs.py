@@ -27,9 +27,9 @@ class Config(object):
 
 📡 **Hosted on:** [Heroku](https://heroku.com)
 
-🧑🏻‍💻 **Owner:** @ARKBotz
+📢 **Updates Channel:** @ARKBotz
 
-📢 **Updates Channel:** [Discovery Projects](https://t.me/Discovery_Updates)
+🧑‍🦱 **Developer** : [Me and All Contributors](tg://settings)
 """
 	ABOUT_DEV_TEXT = f"""
 **Hᴇʟᴘ:**\n\nThis is Permanent Files Store Bot!
