@@ -33,10 +33,10 @@ class Config(object):
 """
 	ABOUT_DEV_TEXT = f"""
 **Hᴇʟᴘ:**\n\nThis is Permanent Files Store Bot!
-Send me any file I will save it in my Database. Also Works For More than 1 File Just Follow These Steps.\n\nThe steps are:-\n\n➥1.) First Send all the file you want to save in batch\n➥2.) Click on save to batch for all the files\n➥3.) Click on get link in last file\n➥4.) Enjoy 🥳\n\n**Bot Managed By @ARKBotz**\n\n**Extra Features** I also Works in Channel Just Add me in Channel as Admin and Check
+Send me any file I will save it in my Database. Also Works For More than 1 File Just Follow These Steps.\n\nThe steps are:-\n\n➥1.) First Send all the file you want to save in batch\n➥2.) Click on save in batch for all the files\n➥3.) Click on get link in last file\n➥4.) Enjoy 🥳\n\n**Extra Features** I also Works in Channel Just Add me in Channel as Admin and Check.\n\n**Bot Managed By @ARKBotz**
 """
 	HOME_TEXT = """
 Hi, [{}](tg://user?id={})\n\nThis is Permanent **File Store Bot**.
 
-Send me any file I will give you a permanent Sharable Link. I Support in Batch Also (More than one)! Check **Help** Button For More Features.
+Send me any file I will give you a permanent Sharable Link. I Support in Batch Also (More than one).\nCheck **Help** Button For More Features.
 """
