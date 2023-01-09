@@ -8,6 +8,7 @@ from binascii import (
 )
 from pyrogram import (
     Client,
+    enums,
     filters
 )
 from pyrogram.errors import (
@@ -40,7 +41,8 @@ from handlers.save_media import (
 MediaList = {}
 
 Bot = Client(
-    Config.BOT_USERNAME,
+    name=Config.BOT_USERNAME,
+    in_memory=True,
     bot_token=Config.BOT_TOKEN,
     api_id=Config.API_ID,
     api_hash=Config.API_HASH
@@ -68,7 +70,6 @@ async def start(bot: Client, cmd: Message):
         await add_user_to_database(bot, cmd)
         await cmd.reply_text(
             Config.HOME_TEXT.format(cmd.from_user.first_name, cmd.from_user.id),
-            parse_mode="Markdown",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -96,21 +97,20 @@ async def start(bot: Client, cmd: Message):
                 _response_msg = await cmd.reply_text(
                     text=f"**Total Files:** `{len(message_ids)}`",
                     quote=True,
-                    parse_mode="Markdown",
                     disable_web_page_preview=True
                 )
             else:
-                message_ids.append(int(GetMessage.message_id))
+                message_ids.append(int(GetMessage.id))
             for i in range(len(message_ids)):
                 await send_media_and_reply(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
 
 
-@Bot.on_message((filters.document | filters.video | filters.audio) & ~filters.edited & ~filters.chat(Config.DB_CHANNEL))
+@Bot.on_message((filters.document | filters.video | filters.audio) & ~filters.chat(Config.DB_CHANNEL))
 async def main(bot: Client, message: Message):
 
-    if message.chat.type == "private":
+    if message.chat.type == enums.ChatType.PRIVATE:
 
         await add_user_to_database(bot, message)
 
@@ -136,7 +136,7 @@ async def main(bot: Client, message: Message):
             quote=True,
             disable_web_page_preview=True
         )
-    elif message.chat.type == "channel":
+    elif message.chat.type == enums.ChatType.CHANNEL:
         if (message.chat.id == int(Config.LOG_CHANNEL)) or (message.chat.id == int(Config.UPDATES_CHANNEL)) or message.forward_from_chat or message.forward_from:
             return
         elif int(message.chat.id) in Config.BANNED_CHAT_IDS:
@@ -147,24 +147,23 @@ async def main(bot: Client, message: Message):
 
         try:
             forwarded_msg = await message.forward(Config.DB_CHANNEL)
-            file_er_id = str(forwarded_msg.message_id)
+            file_er_id = str(forwarded_msg.id)
             share_link = f"https://t.me/{Config.BOT_USERNAME}?start=AbirHasan2005_{str_to_b64(file_er_id)}"
-            CH_edit = await bot.edit_message_reply_markup(message.chat.id, message.message_id,
+            CH_edit = await bot.edit_message_reply_markup(message.chat.id, message.id,
                                                           reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
                                                               "Get Sharable Link", url=share_link)]]))
             if message.chat.username:
                 await forwarded_msg.reply_text(
-                    f"#CHANNEL_BUTTON:\n\n[{message.chat.title}](https://t.me/{message.chat.username}/{CH_edit.message_id}) Channel's Broadcasted File's Button Added!")
+                    f"#CHANNEL_BUTTON:\n\n[{message.chat.title}](https://t.me/{message.chat.username}/{CH_edit.id}) Channel's Broadcasted File's Button Added!")
             else:
                 private_ch = str(message.chat.id)[4:]
                 await forwarded_msg.reply_text(
-                    f"#CHANNEL_BUTTON:\n\n[{message.chat.title}](https://t.me/c/{private_ch}/{CH_edit.message_id}) Channel's Broadcasted File's Button Added!")
+                    f"#CHANNEL_BUTTON:\n\n[{message.chat.title}](https://t.me/c/{private_ch}/{CH_edit.id}) Channel's Broadcasted File's Button Added!")
         except FloodWait as sl:
-            await asyncio.sleep(sl.x)
+            await asyncio.sleep(sl.value)
             await bot.send_message(
                 chat_id=int(Config.LOG_CHANNEL),
-                text=f"#FloodWait:\nGot FloodWait of `{str(sl.x)}s` from `{str(message.chat.id)}` !!",
-                parse_mode="Markdown",
+                text=f"#FloodWait:\nGot FloodWait of `{str(sl.value)}s` from `{str(message.chat.id)}` !!",
                 disable_web_page_preview=True
             )
         except Exception as err:
@@ -172,7 +171,6 @@ async def main(bot: Client, message: Message):
             await bot.send_message(
                 chat_id=int(Config.LOG_CHANNEL),
                 text=f"#ERROR_TRACEBACK:\nGot Error from `{str(message.chat.id)}` !!\n\n**Traceback:** `{err}`",
-                parse_mode="Markdown",
                 disable_web_page_preview=True
             )
 
@@ -187,7 +185,6 @@ async def sts(_, m: Message):
     total_users = await db.total_users_count()
     await m.reply_text(
         text=f"**Total Users in DB:** `{total_users}`",
-        parse_mode="Markdown",
         quote=True
     )
 
@@ -313,7 +310,6 @@ async def button(bot: Client, cmd: CallbackQuery):
     if "aboutbot" in cb_data:
         await cmd.message.edit(
             Config.ABOUT_BOT_TEXT,
-            parse_mode="Markdown",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -332,7 +328,6 @@ async def button(bot: Client, cmd: CallbackQuery):
     elif "aboutdevs" in cb_data:
         await cmd.message.edit(
             Config.ABOUT_DEV_TEXT,
-            parse_mode="Markdown",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -351,7 +346,6 @@ async def button(bot: Client, cmd: CallbackQuery):
     elif "gotohome" in cb_data:
         await cmd.message.edit(
             Config.HOME_TEXT.format(cmd.message.chat.first_name, cmd.message.chat.id),
-            parse_mode="Markdown",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -378,7 +372,6 @@ async def button(bot: Client, cmd: CallbackQuery):
                 if user.status == "kicked":
                     await cmd.message.edit(
                         text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/JoinOT).",
-                        parse_mode="markdown",
                         disable_web_page_preview=True
                     )
                     return
@@ -396,20 +389,17 @@ async def button(bot: Client, cmd: CallbackQuery):
                                 InlineKeyboardButton("🔄 Refresh 🔄", callback_data="refreshmeh")
                             ]
                         ]
-                    ),
-                    parse_mode="markdown"
+                    )
                 )
                 return
             except Exception:
                 await cmd.message.edit(
                     text="Something went Wrong. Contact my [Support Group](https://t.me/JoinOT).",
-                    parse_mode="markdown",
                     disable_web_page_preview=True
                 )
                 return
         await cmd.message.edit(
             text=Config.HOME_TEXT.format(cmd.message.chat.first_name, cmd.message.chat.id),
-            parse_mode="Markdown",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -442,7 +432,7 @@ async def button(bot: Client, cmd: CallbackQuery):
     elif "addToBatchTrue" in cb_data:
         if MediaList.get(f"{str(cmd.from_user.id)}", None) is None:
             MediaList[f"{str(cmd.from_user.id)}"] = []
-        file_id = cmd.message.reply_to_message.message_id
+        file_id = cmd.message.reply_to_message.id
         MediaList[f"{str(cmd.from_user.id)}"].append(file_id)
         await cmd.message.edit("File Saved in Batch!\n\n"
                                "Press below button to get batch link.",

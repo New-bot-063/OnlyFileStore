@@ -17,12 +17,11 @@ async def forward_to_channel(bot: Client, message: Message, editable: Message):
         __SENT = await message.forward(Config.DB_CHANNEL)
         return __SENT
     except FloodWait as sl:
-        if sl.x > 45:
-            await asyncio.sleep(sl.x)
+        if sl.value > 45:
+            await asyncio.sleep(sl.value)
             await bot.send_message(
                 chat_id=int(Config.LOG_CHANNEL),
-                text=f"#FloodWait:\nGot FloodWait of `{str(sl.x)}s` from `{str(editable.chat.id)}` !!",
-                parse_mode="Markdown",
+                text=f"#FloodWait:\nGot FloodWait of `{str(sl.value)}s` from `{str(editable.chat.id)}` !!",
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
                     [
@@ -40,7 +39,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
             sent_message = await forward_to_channel(bot, message, editable)
             if sent_message is None:
                 continue
-            message_ids_str += f"{str(sent_message.message_id)} "
+            message_ids_str += f"{str(sent_message.id)} "
             await asyncio.sleep(2)
         SaveMessage = await bot.send_message(
             chat_id=Config.DB_CHANNEL,
@@ -50,11 +49,10 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
                 InlineKeyboardButton("Delete Batch", callback_data="closeMessage")
             ]])
         )
-        share_link = f"https://t.me/{Config.BOT_USERNAME}?start=AbirHasan2005_{str_to_b64(str(SaveMessage.message_id))}"
+        share_link = f"https://t.me/{Config.BOT_USERNAME}?start=AbirHasan2005_{str_to_b64(str(SaveMessage.id))}"
         await editable.edit(
             f"**Batch Files Stored in my Database!**\n\nHere is the Permanent Link of your files: {share_link} \n\n"
             f"Just Click the link to get your files!",
-            parse_mode="Markdown",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Open Link", url=share_link)],
                  [InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates"),
@@ -73,7 +71,6 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
         await bot.send_message(
             chat_id=int(Config.LOG_CHANNEL),
             text=f"#ERROR_TRACEBACK:\nGot Error from `{str(editable.chat.id)}` !!\n\n**Traceback:** `{err}`",
-            parse_mode="Markdown",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -86,16 +83,15 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
 async def save_media_in_channel(bot: Client, editable: Message, message: Message):
     try:
         forwarded_msg = await message.forward(Config.DB_CHANNEL)
-        file_er_id = str(forwarded_msg.message_id)
+        file_er_id = str(forwarded_msg.id)
         await forwarded_msg.reply_text(
             f"#PRIVATE_FILE:\n\n[{message.from_user.first_name}](tg://user?id={message.from_user.id}) Got File Link!",
-            parse_mode="Markdown", disable_web_page_preview=True)
+            disable_web_page_preview=True)
         share_link = f"https://t.me/{Config.BOT_USERNAME}?start=AbirHasan2005_{str_to_b64(file_er_id)}"
         await editable.edit(
             "**Your File Stored in my Database!**\n\n"
             f"Here is the Permanent Link of your file: {share_link} \n\n"
             "Just Click the link to get your file!",
-            parse_mode="Markdown",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Open Link", url=share_link)],
                  [InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates"),
@@ -104,14 +100,13 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
             disable_web_page_preview=True
         )
     except FloodWait as sl:
-        if sl.x > 45:
-            print(f"Sleep of {sl.x}s caused by FloodWait ...")
-            await asyncio.sleep(sl.x)
+        if sl.value > 45:
+            print(f"Sleep of {sl.value}s caused by FloodWait ...")
+            await asyncio.sleep(sl.value)
             await bot.send_message(
                 chat_id=int(Config.LOG_CHANNEL),
                 text="#FloodWait:\n"
-                     f"Got FloodWait of `{str(sl.x)}s` from `{str(editable.chat.id)}` !!",
-                parse_mode="Markdown",
+                     f"Got FloodWait of `{str(sl.value)}s` from `{str(editable.chat.id)}` !!",
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
                     [
@@ -127,7 +122,6 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
             text="#ERROR_TRACEBACK:\n"
                  f"Got Error from `{str(editable.chat.id)}` !!\n\n"
                  f"**Traceback:** `{err}`",
-            parse_mode="Markdown",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [

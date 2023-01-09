@@ -15,8 +15,8 @@ async def get_invite_link(bot: Client, chat_id: Union[str, int]):
         invite_link = await bot.create_chat_invite_link(chat_id=chat_id)
         return invite_link
     except FloodWait as e:
-        print(f"Sleep of {e.x}s caused by FloodWait ...")
-        await asyncio.sleep(e.x)
+        print(f"Sleep of {e.value}s caused by FloodWait ...")
+        await asyncio.sleep(e.value)
         return await get_invite_link(bot, chat_id)
 
 
@@ -33,7 +33,6 @@ async def handle_force_sub(bot: Client, cmd: Message):
             await bot.send_message(
                 chat_id=cmd.from_user.id,
                 text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/JoinOT).",
-                parse_mode="markdown",
                 disable_web_page_preview=True
             )
             return 400
@@ -56,15 +55,13 @@ async def handle_force_sub(bot: Client, cmd: Message):
                         InlineKeyboardButton("🔄 Refresh 🔄", callback_data="refreshForceSub")
                     ]
                 ]
-            ),
-            parse_mode="markdown"
+            )
         )
         return 400
     except Exception:
         await bot.send_message(
             chat_id=cmd.from_user.id,
             text="Something went Wrong. Contact my [Support Group](https://t.me/JoinOT).",
-            parse_mode="markdown",
             disable_web_page_preview=True
         )
         return 200
